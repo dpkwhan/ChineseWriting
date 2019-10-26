@@ -8,7 +8,8 @@ class App extends Component {
       width: 300,
       height: 300,
       padding: 0,
-      delayBetweenStrokes: 10, // milliseconds
+      strokeColor: "#168F16", // pink
+      delayBetweenStrokes: 30, // milliseconds
       showOutline: true
     });
     writer1.animateCharacter();
@@ -19,14 +20,22 @@ class App extends Component {
       showCharacter: false,
       padding: 0
     });
-    writer2.quiz();
+    writer2.quiz({
+      onMistake: function(strokeData) {
+        console.log("Mistake on stroke " + strokeData.strokeNum);
+      },
+      onComplete: function(summaryData) {
+        document.getElementById("result").innerHTML = "Good job!";
+      }
+    });
   }
 
   render() {
     return (
       <Fragment>
-        <div id="character-target-div" textalign="center"></div>
-        <div id="character-target-div-quiz" textalign="center"></div>
+        <div id="character-target-div" className="center-div"></div>
+        <div id="character-target-div-quiz" className="center-div"></div>
+        <div id="result" className="center-div"></div>
       </Fragment>
     );
   }
