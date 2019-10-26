@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import HanziWriter from "hanzi-writer";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    const writer1 = HanziWriter.create("character-target-div", "测", {
+      width: 300,
+      height: 300,
+      padding: 0,
+      delayBetweenStrokes: 10, // milliseconds
+      showOutline: true
+    });
+    writer1.animateCharacter();
+
+    const writer2 = HanziWriter.create("character-target-div-quiz", "测", {
+      width: 300,
+      height: 300,
+      showCharacter: false,
+      padding: 0
+    });
+    writer2.quiz();
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div id="character-target-div" textalign="center"></div>
+        <div id="character-target-div-quiz" textalign="center"></div>
+      </Fragment>
+    );
+  }
 }
 
 export default App;
