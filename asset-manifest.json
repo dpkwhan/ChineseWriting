@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/chinese/static/css/main.9a2206a5.chunk.css",
-    "main.js": "/chinese/static/js/main.4b7447fa.chunk.js",
-    "main.js.map": "/chinese/static/js/main.4b7447fa.chunk.js.map",
+    "main.css": "/chinese/static/css/main.d2492fc3.chunk.css",
+    "main.js": "/chinese/static/js/main.ccde40ef.chunk.js",
+    "main.js.map": "/chinese/static/js/main.ccde40ef.chunk.js.map",
     "runtime-main.js": "/chinese/static/js/runtime-main.a47d224d.js",
     "runtime-main.js.map": "/chinese/static/js/runtime-main.a47d224d.js.map",
     "static/js/2.646c4a5c.chunk.js": "/chinese/static/js/2.646c4a5c.chunk.js",
     "static/js/2.646c4a5c.chunk.js.map": "/chinese/static/js/2.646c4a5c.chunk.js.map",
     "index.html": "/chinese/index.html",
-    "precache-manifest.5ac9d94c8f256ea3bebe8ae329397935.js": "/chinese/precache-manifest.5ac9d94c8f256ea3bebe8ae329397935.js",
+    "precache-manifest.e3716d0060db6a70d35ede00057d8334.js": "/chinese/precache-manifest.e3716d0060db6a70d35ede00057d8334.js",
     "service-worker.js": "/chinese/service-worker.js",
-    "static/css/main.9a2206a5.chunk.css.map": "/chinese/static/css/main.9a2206a5.chunk.css.map"
+    "static/css/main.d2492fc3.chunk.css.map": "/chinese/static/css/main.d2492fc3.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.a47d224d.js",
     "static/js/2.646c4a5c.chunk.js",
-    "static/css/main.9a2206a5.chunk.css",
-    "static/js/main.4b7447fa.chunk.js"
+    "static/css/main.d2492fc3.chunk.css",
+    "static/js/main.ccde40ef.chunk.js"
   ]
 }
