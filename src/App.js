@@ -64,10 +64,14 @@ class CharacterStrokeByStrokePractice extends Component {
     group.setAttributeNS(null, "transform", transformData.transform);
     svg.appendChild(group);
 
-    strokes.forEach(strokePath => {
+    strokes.forEach((strokePath, idx) => {
       const path = document.createElementNS(svgLink, "path");
       path.setAttributeNS(null, "d", strokePath);
-      path.style.fill = "#555"; // style the character paths
+      if (idx < strokes.length - 1) {
+        path.style.fill = "#555"; // style the character paths
+      } else {
+        path.style.fill = "green";
+      }
       group.appendChild(path);
     });
   }
