@@ -10,13 +10,14 @@ class CharacterAnimation extends Component {
   constructor(props, context) {
     super(props, context);
     autoBind(this);
+    this.writer = null;
   }
 
   componentDidMount() {
     const node = ReactDOM.findDOMNode(this);
     const { width } = node.getBoundingClientRect();
     const fontWidth = width - 10;
-    const writer = HanziWriter.create(node, this.props.character, {
+    this.writer = HanziWriter.create(node, this.props.character, {
       width: fontWidth,
       height: fontWidth,
       padding: 0,
@@ -24,11 +25,16 @@ class CharacterAnimation extends Component {
       showOutline: true,
       delayBetweenLoops: 1000
     });
-    writer.loopCharacterAnimation();
+    this.writer.loopCharacterAnimation();
   }
 
   render() {
-    return <div style={{ margin: "auto" }} />;
+    const { character } = this.props;
+    if (this.writer !== null) {
+      this.writer.setCharacter(character);
+      this.writer.loopCharacterAnimation();
+    }
+    return <div style={{ margin: "0 auto", maxWidth: 500, maxHeight: 500 }} />;
   }
 }
 
@@ -36,6 +42,8 @@ class CharacterStrokeByStrokePractice extends Component {
   constructor(props, context) {
     super(props, context);
     autoBind(this);
+    this.node = null;
+    this.fontWidth = null;
   }
 
   renderFanningStrokes(target, strokes) {
@@ -64,18 +72,18 @@ class CharacterStrokeByStrokePractice extends Component {
     });
   }
 
-  componentDidMount() {
-    const node = ReactDOM.findDOMNode(this);
-    const { width } = node.getBoundingClientRect();
-    const fontWidth = width - 10;
+  paintCharacter(node, fontWidth, character) {
+    HanziWriter.loadCharacterData(character).then(charData => {
+      while (node.firstChild) {
+        node.firstChild.remove();
+      }
 
-    HanziWriter.loadCharacterData(this.props.character).then(charData => {
       for (let i = 0; i < charData.strokes.length; i++) {
         const strokesPortion = charData.strokes.slice(0, i + 1);
         this.renderFanningStrokes(node, strokesPortion);
       }
 
-      const writer = HanziWriter.create(node, this.props.character, {
+      const writer = HanziWriter.create(node, character, {
         width: fontWidth,
         height: fontWidth,
         padding: 0
@@ -84,8 +92,22 @@ class CharacterStrokeByStrokePractice extends Component {
     });
   }
 
+  componentDidMount() {
+    const node = ReactDOM.findDOMNode(this);
+    const { width } = node.getBoundingClientRect();
+    const fontWidth = width - 10;
+    this.node = node;
+    this.fontWidth = fontWidth;
+    this.paintCharacter(node, fontWidth, this.props.character);
+  }
+
   render() {
-    return <div />;
+    const { character } = this.props;
+    if (this.node !== null && this.fontWidth !== null) {
+      this.paintCharacter(this.node, this.fontWidth, character);
+    }
+
+    return <div style={{ margin: "0 auto", maxWidth: 500, maxHeight: 600 }} />;
   }
 }
 
@@ -93,20 +115,55 @@ class App extends Component {
   constructor(props, context) {
     super(props, context);
     autoBind(this);
-    this.chineseCharacter = "汉";
+    this.runner = null;
+    this.characters = ["我", "要", "学", "汉", "语"];
+    this.state = { charIdx: 0 };
+  }
+
+  componentDidMount() {
+    this.runner = setInterval(() => {
+      const charIdx =
+        this.state.charIdx === this.characters.length - 1
+          ? 0
+          : this.state.charIdx + 1;
+      this.setState({ charIdx });
+    }, 30000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.runner);
   }
 
   render() {
+    const { charIdx } = this.state;
+    const character = this.characters[charIdx];
+
     return (
       <Fragment>
-        <Tabs tabPosition="right" onChange={this.changeTab}>
-          <TabPane tab="笔顺动画" key="1">
-            <CharacterAnimation character={this.chineseCharacter} />
+        <Tabs tabPosition="right">
+          <TabPane
+            tab={
+              <div>
+                <span>笔 顺 动 画</span>
+                <br />
+                <span>Stroke Animation</span>
+              </div>
+            }
+            key="1"
+          >
+            <CharacterAnimation character={character} />
           </TabPane>
-          <TabPane tab="描写练习" key="3">
-            <CharacterStrokeByStrokePractice
-              character={this.chineseCharacter}
-            />
+          <TabPane
+            tab={
+              <div>
+                <span>描 写 练 习</span>
+                <br />
+                <span>Stroke Practice</span>
+              </div>
+            }
+            key="2"
+          >
+            <CharacterStrokeByStrokePractice character={character} />
           </TabPane>
         </Tabs>
       </Fragment>
