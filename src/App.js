@@ -34,7 +34,7 @@ class CharacterAnimation extends Component {
       this.writer.setCharacter(character);
       this.writer.loopCharacterAnimation();
     }
-    return <div style={{ margin: "0 auto", maxWidth: 500, maxHeight: 500 }} />;
+    return <div style={{ margin: "0 auto", maxWidth: 500 }} />;
   }
 }
 
@@ -107,7 +107,7 @@ class CharacterStrokeByStrokePractice extends Component {
       this.paintCharacter(this.node, this.fontWidth, character);
     }
 
-    return <div style={{ margin: "0 auto", maxWidth: 500, maxHeight: 600 }} />;
+    return <div style={{ margin: "0 auto", maxWidth: 500 }} />;
   }
 }
 
