@@ -7,7 +7,7 @@
     "hanzi-writer": "^2.0.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "antd": "^3.19.2",
     "prop-types": "^15.7.2",
     "react-autobind": "^1.0.6"
